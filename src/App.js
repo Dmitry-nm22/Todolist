@@ -30,6 +30,8 @@ class App extends React.Component {
         this.setState({
             tasks: newTAsks
         });
+
+        this.newTaskTitleRef.current.value = '';
     }
 
     render = () => {
