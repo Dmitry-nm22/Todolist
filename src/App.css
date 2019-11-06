@@ -26,3 +26,12 @@
 .error {
   border-color: red;
 }
+
+.App {
+  display: flex;
+  flex-direction: row;
+}
+
+.todoList {
+  width: 300px;
+}

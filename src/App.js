@@ -1,121 +1,72 @@
 import React from 'react';
 import './App.css';
-import TodoListHeader from "./TodoListHeader";
-import TodoListTasks from "./TodoListTasks";
-import TodoListFooter from "./TodoListFooter";
+import ToDoList from "./ToDoList";
+import AddNewItemForm from "./AddNewItemForm";
 
 class App extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.newTasksTitileRef = React.createRef();
-    }
 
     componentDidMount = () => {
         this.restoreState()
     }
 
-    
-
     state = {
-        tasks: [],
-        nextTaskId: 0,
-        filterValue: "All"
+
+        todolists: [
+            {id: 33, title: 'What to learn'},
+            {id: 44, title: 'Week tasks'},
+            {id: 55, title: 'Year tasks'}
+
+        ],
+        newtodolistid: 0
     };
 
     saveState = () => {
-        let stateAsString = JSON.stringify(this.state)
-        localStorage.setItem('our-state', stateAsString);
+        let stateAsString = JSON.stringify(this.state);
+        localStorage.setItem('state-for-item' + this.props.id, stateAsString);
     }
 
 
     restoreState = () => {
         let state = {
-            tasks: [],
-            filterValue: "All"
+            todolists:[],
+            newtodolistid: 0
         };
-        let stateAsString = localStorage.getItem('our-state');
+        let stateAsString = localStorage.getItem('state-for-item' + this.props.id);
         if(stateAsString != null){
-            state = JSON.parse(stateAsString);        
+            state = JSON.parse(stateAsString);
         }
 
         this.setState(state)
     }
 
-    addTask = (newText) => {
-        let newTask = {
-            id: this.state.nextTaskId,
-            title: newText,
-            isDone: false,
-            priority: "low"
-        };
-        this.state.nextTaskId++
-        let newTasks = [...this.state.tasks, newTask];
-        this.setState( {
-            tasks: newTasks
-        }, () => {this.saveState();});
-        
-        
-    }
+    addToDoList = (title) =>{
 
-    changeFilter = (newFilterValue) => {
-        this.setState( {
-            filterValue: newFilterValue
-        },() => {this.saveState();});
-    }
+            let newToDolist = {
+                id: this.state.newtodolistid,
+                title: title,
 
-    changeTask= (taskId, obj ) =>{        
-        
-        let newTasks = this.state.tasks.map(t => {
-            if (t.id != taskId) {
-                return t; 
-            }
-            else {
-               
-                return {...t, ...obj};
-            }
-        });
-        
-        this.setState({
-            tasks: newTasks
-        },() => {this.saveState();})
+            };
+            this.state.newtodolistid++
+            let newToDoLists = [...this.state.todolists, newToDolist];
+            this.setState( {
+                todolists: newToDoLists
+            }, () => {this.saveState()});
 
-    }
-
-    changeStatus = (taskId, isDone) => {
-
-        this.changeTask(taskId,{isDone: isDone})
-    
-    }
-
-    changeTitle = (taskId, title) => {
-
-        this.changeTask(taskId,{title: title})      
-       
-    }
-
+    };
 
     render = () => {
+        const todolists = this.state.todolists.map(tl => <ToDoList  id={tl.id} title={tl.title}/>)
+
+
+
 
         return (
-            <div className="App">
-                <div className="todoList">
-                    <TodoListHeader addTask={this.addTask} />
-                    <TodoListTasks changeTask={this.changeTask} 
-                                    changeStatus={this.changeStatus }
-                                    changeTitle={this.changeTitle}
-                                   tasks={this.state.tasks.filter(t => {
-                        if (this.state.filterValue === "All") {
-                            return true;
-                        }
-                        if (this.state.filterValue === "Active") {
-                            return t.isDone === false;
-                        }
-                        if (this.state.filterValue === "Completed") {
-                            return t.isDone === true;
-                        }
-                    })}/>
-                    <TodoListFooter changeFilter={this.changeFilter} filterValue={this.state.filterValue} />
+            <div>
+                <div>
+                    <AddNewItemForm addItem={this.addToDoList}/>
+                </div>
+                <div className="App">
+                {todolists}
                 </div>
             </div>
         );

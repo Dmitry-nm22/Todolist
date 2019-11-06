@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 
 
-class TodoListHeader extends React.Component {
+class TodoListTitle extends React.Component {
 
 
     render = () => {
@@ -16,5 +16,5 @@ class TodoListHeader extends React.Component {
     }
 }
 
-export default TodoListHeader;
+export default TodoListTitle;
 
