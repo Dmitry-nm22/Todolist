@@ -4,8 +4,9 @@ import TodoListTasks from "./TodoListTasks";
 import TodoListFooter from "./TodoListFooter";
 import TodoListTitle from "./TodoListTitle";
 import AddNewItemForm from "./AddNewItemForm";
+import {connect} from "react-redux";
 
-class App extends React.Component {
+class TodoList extends React.Component {
 
     constructor(props) {
         super(props);
@@ -16,12 +17,13 @@ class App extends React.Component {
         this.restoreState()
     }
 
-    
+
 
     state = {
-        tasks: [],
-        nextTaskId: 0
+        tasks: []
+
     };
+    nextTaskId = 0
 
     saveState = () => {
         let stateAsString = JSON.stringify(this.state);
@@ -35,7 +37,7 @@ class App extends React.Component {
         };
         let stateAsString = localStorage.getItem('our-state' + this.props.id);
         if(stateAsString != null){
-            state = JSON.parse(stateAsString);        
+            state = JSON.parse(stateAsString);
         }
 
         this.setState(state)
@@ -44,17 +46,19 @@ class App extends React.Component {
     addTask = (newText) => {
         debugger
         let newTask = {
-            id: this.state.nextTaskId,
+            id: this.nextTaskId,
             title: newText,
             isDone: false,
             priority: "low"
         };
-        this.state.nextTaskId++
-        let newTasks = [...this.state.tasks, newTask];
-        this.setState( {
-            tasks: newTasks
-        }, () => {this.saveState();});
-        
+        this.nextTaskId++
+        this.props.addTask(newTask, this.props.id)
+
+        // let newTasks = [...this.state.tasks, newTask];
+        // this.setState( {
+        //     tasks: newTasks
+        // }, () => {this.saveState();});
+
         
     }
 
@@ -64,21 +68,22 @@ class App extends React.Component {
         },() => {this.saveState();});
     }
 
-    changeTask= (taskId, obj ) =>{        
+    changeTask= (taskId, obj ) =>{
+        this.props.changeTask(this.props.id, taskId, obj )
         
-        let newTasks = this.state.tasks.map(t => {
-            if (t.id != taskId) {
-                return t; 
-            }
-            else {
-               
-                return {...t, ...obj};
-            }
-        });
-        
-        this.setState({
-            tasks: newTasks
-        },() => {this.saveState();})
+        // let newTasks = this.state.tasks.map(t => {
+        //     if (t.id != taskId) {
+        //         return t;
+        //     }
+        //     else {
+        //
+        //         return {...t, ...obj};
+        //     }
+        // });
+        //
+        // this.setState({
+        //     tasks: newTasks
+        // },() => {this.saveState();})
 
     }
 
@@ -96,7 +101,6 @@ class App extends React.Component {
 
 
     render = () => {
-        debugger
         return (
             <div className="App">
                 <div className="todoList">
@@ -108,7 +112,7 @@ class App extends React.Component {
                     <TodoListTasks changeTask={this.changeTask} 
                                     changeStatus={this.changeStatus }
                                     changeTitle={this.changeTitle}
-                                   tasks={this.state.tasks.filter(t => {
+                                   tasks={this.props.tasks.filter(t => {
                         if (this.state.filterValue === "All") {
                             return true;
                         }
@@ -126,5 +130,27 @@ class App extends React.Component {
     }
 }
 
-export default App;
+
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addTask:(newTask, todolistId)=>{
+            const action = {
+                type: "ADD-TASK",
+                newTask: newTask,
+                todolistId: todolistId
+            }
+            dispatch(action)
+        },
+
+        changeTask:(taskId, obj, todolistId)=>{
+            const action = { type: "CHANGE-TASK", taskId, obj, todolistId }
+            dispatch(action)
+        }
+    }
+}
+
+const ConnectedTodoList = connect(null, mapDispatchToProps)(TodoList);
+export default ConnectedTodoList;
+
 

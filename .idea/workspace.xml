@@ -2,16 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="607b916b-bef4-4edd-a955-ed5c9bc60647" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/store.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TodoListHeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/TodoListHeader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDoList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDoList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TodoListTask.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/TodoListTask.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -20,7 +31,7 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../kamasutra_domashka" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
@@ -81,7 +92,15 @@
       <workItem from="1571758193194" duration="21000" />
       <workItem from="1571762644447" duration="1493000" />
       <workItem from="1571848275693" duration="65000" />
-      <workItem from="1573052348111" duration="9450000" />
+      <workItem from="1573052348111" duration="10188000" />
+      <workItem from="1573393743089" duration="1062000" />
+      <workItem from="1573657284031" duration="265000" />
+      <workItem from="1573657783234" duration="17000" />
+      <workItem from="1573659385505" duration="266000" />
+      <workItem from="1573660571304" duration="4389000" />
+      <workItem from="1577207309934" duration="34000" />
+      <workItem from="1577207355154" duration="147000" />
+      <workItem from="1577293053369" duration="6467000" />
     </task>
     <task id="LOCAL-00001" summary="bax fix">
       <created>1569942069112</created>
@@ -125,7 +144,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571166526878</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add title component, refactoring code">
+      <created>1573063172175</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1573063172175</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -149,6 +175,7 @@
     <MESSAGE value="add props" />
     <MESSAGE value="commit" />
     <MESSAGE value="modifed checkbox" />
-    <option name="LAST_COMMIT_MESSAGE" value="modifed checkbox" />
+    <MESSAGE value="add title component, refactoring code" />
+    <option name="LAST_COMMIT_MESSAGE" value="add title component, refactoring code" />
   </component>
 </project>

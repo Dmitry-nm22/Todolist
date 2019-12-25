@@ -12,7 +12,9 @@ class TodoListTask extends React.Component {
         this.setState({editMode: true})
     }
     deActivateEditMode = () =>{
-        this.setState({editMode: false})
+        this.setState({
+            editMode: false
+        })
     }
 
 
