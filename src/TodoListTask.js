@@ -16,7 +16,9 @@ class TodoListTask extends React.Component {
             editMode: false
         })
     }
-
+    deleteTask = () => {
+        this.props.deleteTask(this.props.task.id)
+    }
 
     onIsDoneChanged = (e) => {
         this.props.changeStatus(this.props.task.id, e.currentTarget.checked);
@@ -43,7 +45,7 @@ class TodoListTask extends React.Component {
 
                     }
                     priority: {this.props.task.priority}
-                <button onClick={this.props.deleteTask}>X</button>
+                <button onClick={this.deleteTask}>X</button>
 
             </div>
         );

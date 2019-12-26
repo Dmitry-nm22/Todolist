@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="607b916b-bef4-4edd-a955-ed5c9bc60647" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AddNewItemForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/AddNewItemForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToDoList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDoList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TodoListTask.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/TodoListTask.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TodoListTasks.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/TodoListTasks.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -101,7 +97,7 @@
       <workItem from="1577207309934" duration="34000" />
       <workItem from="1577207355154" duration="147000" />
       <workItem from="1577293053369" duration="6530000" />
-      <workItem from="1577369056800" duration="6249000" />
+      <workItem from="1577369056800" duration="7463000" />
     </task>
     <task id="LOCAL-00001" summary="bax fix">
       <created>1569942069112</created>
@@ -159,7 +155,14 @@
       <option name="project" value="LOCAL" />
       <updated>1577299630499</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="add delete mode on task and todolist">
+      <created>1577375974173</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1577375974173</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -185,6 +188,7 @@
     <MESSAGE value="modifed checkbox" />
     <MESSAGE value="add title component, refactoring code" />
     <MESSAGE value="add react-redux" />
-    <option name="LAST_COMMIT_MESSAGE" value="add react-redux" />
+    <MESSAGE value="add delete mode on task and todolist" />
+    <option name="LAST_COMMIT_MESSAGE" value="add delete mode on task and todolist" />
   </component>
 </project>
