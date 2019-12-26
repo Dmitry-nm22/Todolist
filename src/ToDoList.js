@@ -18,11 +18,10 @@ class TodoList extends React.Component {
     }
 
 
-
     state = {
         tasks: []
+    }
 
-    };
     nextTaskId = 0
 
     saveState = () => {
@@ -39,12 +38,10 @@ class TodoList extends React.Component {
         if(stateAsString != null){
             state = JSON.parse(stateAsString);
         }
-
         this.setState(state)
     }
 
     addTask = (newText) => {
-        debugger
         let newTask = {
             id: this.nextTaskId,
             title: newText,
@@ -53,13 +50,6 @@ class TodoList extends React.Component {
         };
         this.nextTaskId++
         this.props.addTask(newTask, this.props.id)
-
-        // let newTasks = [...this.state.tasks, newTask];
-        // this.setState( {
-        //     tasks: newTasks
-        // }, () => {this.saveState();});
-
-        
     }
 
     changeFilter = (newFilterValue) => {
@@ -70,21 +60,14 @@ class TodoList extends React.Component {
 
     changeTask= (taskId, obj ) =>{
         this.props.changeTask(this.props.id, taskId, obj )
-        
-        // let newTasks = this.state.tasks.map(t => {
-        //     if (t.id != taskId) {
-        //         return t;
-        //     }
-        //     else {
-        //
-        //         return {...t, ...obj};
-        //     }
-        // });
-        //
-        // this.setState({
-        //     tasks: newTasks
-        // },() => {this.saveState();})
+    }
 
+    deleteTask= (taskId) =>{
+        this.props.deleteTask( taskId, this.props.id)
+    }
+
+    deleteTodolist = () =>{
+        this.props.deleteTodolist(this.props.id)
     }
 
     changeStatus = (taskId, isDone) => {
@@ -106,10 +89,11 @@ class TodoList extends React.Component {
                 <div className="todoList">
                     <div className= 'todolist-header'>
                         <TodoListTitle title={this.props.title}/>
-                        <AddNewItemForm addItem={this.addTask}/>
+                        <AddNewItemForm deleteTodolist={this.deleteTodolist}
+                                        addItem={this.addTask}/>
                     </div>
-
-                    <TodoListTasks changeTask={this.changeTask} 
+                    <TodoListTasks changeTask={this.changeTask}
+                                   deleteTask={this.deleteTask}
                                     changeStatus={this.changeStatus }
                                     changeTitle={this.changeTitle}
                                    tasks={this.props.tasks.filter(t => {
@@ -143,10 +127,27 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(action)
         },
 
-        changeTask:(taskId, obj, todolistId)=>{
+        changeTask:(todolistId, taskId, obj)=>{
             const action = { type: "CHANGE-TASK", taskId, obj, todolistId }
             dispatch(action)
+        },
+
+        deleteTask:(taskId, todolistId)=>{
+            const action = {
+                type: "DELETE-TASK",
+                taskId: taskId,
+                todolistId: todolistId
+            }
+            dispatch(action)
+        },
+        deleteTodolist: (TodolistId) => {
+            const action = {
+                type: "DELETE-TODOLIST",
+                TodolistId: TodolistId
+            };
+            dispatch(action)
         }
+
     }
 }
 

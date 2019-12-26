@@ -33,7 +33,6 @@ const reducer = (state = initialState, action) => {
             }
         }
         case  "CHANGE-TASK": {
-            debugger
             return {
                 ...state,
                 todolists: state.todolists.map(todolist =>{
@@ -54,10 +53,31 @@ const reducer = (state = initialState, action) => {
                 })
             }
         }
+        case  "DELETE-TODOLIST": {
+            return {
+                ...state,
+                todolists: state.todolists.filter(tl => tl.id != action.TodolistId)
+            }
+        }
+        case  "DELETE-TASK": {
+            debugger
+            return {
+                ...state,
+                todolists: state.todolists.map(tl =>{
+                    if(tl.id === action.TodolistId){
+                        return{
+                            ...tl,
+                            tasks: tl.tasks.filter(t => t.id != action.taskId)
+                        }
+                    }else{
+                        return  tl
+                    }
+                })
+            }
+        }
         default:
             return state;
     }
-
 }
 
 const store = createStore(reducer);

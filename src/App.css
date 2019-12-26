@@ -35,3 +35,8 @@
 .todoList {
   width: 300px;
 }
+
+.todoList-header__titler{
+  display: flex;
+}
+

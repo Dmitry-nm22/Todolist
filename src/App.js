@@ -11,14 +11,12 @@ class App extends React.Component {
     }
 
     state = {
-
         todolists: [
             {id: 33, title: 'What to learn'},
             {id: 44, title: 'Week tasks'},
             {id: 55, title: 'Year tasks'}
 
         ],
-
     };
     newtodolistid = 0
 
@@ -51,11 +49,9 @@ class App extends React.Component {
             };
             this.newtodolistid++
             this.props.addTodolist(newTodolist)
-            // let newToDoLists = [...this.state.todolists, newToDolist];
-            // this.setState( {
-            //     todolists: newToDoLists
-            // }, () => {this.saveState()});
     };
+
+
 
     render = () => {
         const todolists = this.props.todolists.map(tl => <ToDoList  id={tl.id} title={tl.title} tasks={tl.tasks}/>)
@@ -85,7 +81,6 @@ const mapDispatchToProps = (dispatch) => {
                 type: "ADD-TODOLIST",
                 newTodolist: newTodolist
             };
-
             dispatch(action)
         }
     }
