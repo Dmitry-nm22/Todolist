@@ -89,9 +89,11 @@ class TodoList extends React.Component {
             <div className="App">
                 <div className="todoList">
                     <div className= 'todolist-header'>
-                        <TodoListTitle title={this.props.title}/>
-                        <AddNewItemForm deleteTodolist={this.deleteTodolist}
-                                        addItem={this.addTask}/>
+                        <TodoListTitle title={this.props.title}
+                                       deleteTodolist={this.deleteTodolist}
+
+                        />
+                        <AddNewItemForm addItem={this.addTask}/>
                     </div>
                     <TodoListTasks changeTask={this.changeTask}
                                    deleteTask={this.deleteTask}

@@ -36,7 +36,12 @@
   width: 300px;
 }
 
-.todoList-header__titler{
+.todoList-header__title{
   display: flex;
+}
+.todoList-header__title button{
+  margin-left: 15px;
+  margin-top: 20px;
+  height: 30px;
 }
 
