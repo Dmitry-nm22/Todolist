@@ -1,27 +1,11 @@
 import React from 'react';
 import './App.css';
 
-
 class AddNewItemForm extends React.Component {
-
     state = {
         error: false,
         title: ""
     }
-
-    onTitleChanged = (e) => {
-        this.setState({
-            error: false,
-            title: e.currentTarget.value
-        });
-    }
-
-    onKeyPress = (e) => {
-        if (e.key === "Enter") {
-            this.onAddItemClick()
-        }
-    }
-
 
     onAddItemClick = () => {
         let newText = this.state.title;
@@ -36,17 +20,33 @@ class AddNewItemForm extends React.Component {
         }
     }
 
+    onTitleChanged = (e) => {
+        this.setState({
+            error: false,
+            title: e.currentTarget.value
+        });
+    }
+
+    onKeyPress = (e) => {
+        if (e.key === "Enter") {
+            this.onAddItemClick();
+        }
+    }
+
+
     render = () => {
         let classNameForInput = this.state.error ? "error" : "";
+
         return (
-                <div className="todoList-newTaskForm">
-                    <input className={classNameForInput} type="text" placeholder="New item name"
-                           onChange={this.onTitleChanged}
-                           onKeyPress={this.onKeyPress}
-                           value={this.state.title}
-                    />
-                    <button onClick={this.onAddItemClick}>Add</button>
-                </div>
+            <div className="todoList-newTaskForm">
+                <input className={classNameForInput} type="text" placeholder="New item name"
+                       onChange={this.onTitleChanged}
+                       onKeyPress={this.onKeyPress}
+                       value={this.state.title}
+                />
+                <button onClick={this.onAddItemClick}>Add</button>
+            </div>
+
         );
     }
 }

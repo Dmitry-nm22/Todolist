@@ -1,10 +1,10 @@
 .App {
-
+  display: flex;
+  flex-direction: row;
 }
 
 .todoList {
-  width: 500px;
-  margin: 0 auto;
+  width: 300px;
 }
 
 .todoList > div {
@@ -26,22 +26,3 @@
 .error {
   border-color: red;
 }
-
-.App {
-  display: flex;
-  flex-direction: row;
-}
-
-.todoList {
-  width: 300px;
-}
-
-.todoList-header__title{
-  display: flex;
-}
-.todoList-header__title button{
-  margin-left: 15px;
-  margin-top: 20px;
-  height: 30px;
-}
-
