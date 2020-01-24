@@ -1,12 +1,16 @@
-export const ADD_TODOLIST ="Todolist/Reducer/ADD-TODOLIST"
-export const DELETE_TODOLIST ="Todolist/Reducer/DELETE-TODOLISTT"
-export const DELETE_TASK ="Todolist/Reducer/DELETE-TASK"
-export const ADD_TASK ="Todolist/Reducer/ADD-TASK"
-export const UPDATE_TASK ="Todolist/Reducer/UPDATE-TASK"
+import {api} from "./api";
 
+export const ADD_TODOLIST = "TodoList/Reducer/ADD-TODOLIST";
+export const DELETE_TODOLIST = "TodoList/Reducer/DELETE-TODOLIST";
+export const DELETE_TASK = "TodoList/Reducer/DELETE-TASK";
+export const UPDATE_TODOLIST_TITLE = "TodoList/Reducer/UPDATE_TODOLIST_TITLE";
+export const ADD_TASK = "TodoList/Reducer/ADD-TASK";
+export const SET_TASKS = "TodoList/Reducer/SET_TASKS";
+export const UPDATE_TASK = "TodoList/Reducer/UPDATE-TASK";
+export const SET_TODOLISTS = "TodoList/Reducer/SET_TODOLISTS";
 
 const initialState = {
-    "todolists": [
+    "todolists": [/*
         {
             "id": 0, "title": "every day",
             tasks: [
@@ -19,42 +23,45 @@ const initialState = {
         },
         {"id": 1, "title": "tomorrow", tasks: []},
         {"id": 2, "title": "weewwe`", tasks: []},
-        {"id": 3, "title": "dddd", tasks: []}
+        {"id": 3, "title": "dddd", tasks: []}*/
     ]
 }
 
-export const  addTaskAC = (newTask, todolistId) => {
-    return {type: ADD_TASK, newTask, todolistId }
-}
-
-export const  updateTaskAC = (taskId, obj, todolistId) => {
-    return {type: UPDATE_TASK, taskId, obj, todolistId }
-}
-
-export const  deleteTaskAC = (taskId, todolistId) => {
-    return {type: DELETE_TASK, taskId, todolistId}
-}
-
-export const  deleteTotolistAC = (todolistId) => {
-    return {type: DELETE_TODOLIST, todolistId}
-}
-
-export const  addTotolistAC = (newTodolist) => {
-    return {type: ADD_TODOLIST, newTodolist}
-}
-
-
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case SET_TASKS:
+            return {
+                ...state,
+                todolists: state.todolists.map(tl => {
+                    if (tl.id !== action.todolistId) {
+                        return tl;
+                    } else {
+                        return {...tl, tasks: action.tasks}
+                    }
+                })
+            }
+        case SET_TODOLISTS:
+            return {
+                ...state,
+                todolists: action.todolists.map(tl => ({...tl, tasks: []}))
+            }
         case ADD_TODOLIST:
             return {
                 ...state,
-                todolists: [...state.todolists, action.newTodolist]
+                todolists: [action.newTodolist, ...state.todolists]
             }
         case DELETE_TODOLIST:
             return {
                 ...state,
                 todolists: state.todolists.filter(tl => tl.id != action.todolistId)
+            }
+        case UPDATE_TODOLIST_TITLE:
+            return {
+                ...state,
+                todolists: state.todolists.map(tl => {
+                    if (tl.id != action.todolistId) return tl;
+                    else return {...tl, title: action.title}
+                })
             }
         case DELETE_TASK:
             return {
@@ -105,5 +112,80 @@ const reducer = (state = initialState, action) => {
     console.log("reducer: ", action);
     return state;
 }
+
+export const updateTaskAC = (taskId, obj, todolistId) => {
+    return {type: UPDATE_TASK, taskId, obj, todolistId};
+}
+export const deleteTodolistAC = (todolistId) => {
+    return {
+        type: DELETE_TODOLIST,
+        todolistId: todolistId
+    };
+}
+export const deleteTaskAC = (todolistId, taskId) => {
+    return {
+        type: DELETE_TASK,
+        todolistId,
+        taskId
+    };
+}
+export const updateTodolistTitleAC = (todolistId, title) => {
+    return {
+        type: UPDATE_TODOLIST_TITLE,
+        todolistId,
+        title
+    };
+}
+export const addTaskAC = (newTask, todolistId) => {
+    return {type: ADD_TASK, newTask, todolistId};
+}
+export const setTasksAC = (tasks, todolistId) => {
+    return {type: SET_TASKS, tasks, todolistId};
+}
+export const addTodolistAC = (newTodolist) => {
+    return {
+        type: ADD_TODOLIST,
+        newTodolist: newTodolist
+    }
+}
+export const setTodolistsAC = (todolists) => {
+    return {
+        type: SET_TODOLISTS,
+        todolists: todolists
+    }
+}
+
+export const getTodolistsTc = () => (dispatch, getState) => {
+
+    api.getTodolists().then(res => {
+        dispatch(setTodolistsAC(res.data));
+    });
+}
+
+export const createTaskTC = (newText, todoId) => (dispatch, getState) => {
+    api.createTask(newText, todoId)
+        .then(res => {
+            let newTask = res.data.data.item;
+            dispatch(addTaskAC(newTask, todoId));
+        });
+}
+
+export const createTodolistTC = (title) => (dispatch, getState) => {
+    api.createTodolist(title)
+         .then(res => {
+             let todolist = res.data.data.item;
+             dispatch(addTodolistAC(todolist));
+            });
+}
+
+export const getTasksTC = (taskId) => (dispatch, getState) => {
+    api.getTasks(taskId)
+         .then(res => {
+            let allTasks = res.data.items;                           // items - это таски сервака
+             dispatch(setTasksAC(allTasks, taskId));
+         });
+}
+
+
 
 export default reducer;

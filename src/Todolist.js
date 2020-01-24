@@ -5,14 +5,23 @@ import TodoListFooter from "./TodoListFooter";
 import TodoListTitle from "./TodoListTitle";
 import AddNewItemForm from "./AddNewItemForm";
 import {connect} from "react-redux";
-import {addTaskAC, deleteTaskAC, deleteTotolistAC, updateTaskAC} from "./reducer";
+import {
+    addTaskAC,
+    deleteTaskAC,
+    deleteTodolistAC,
+    setTasksAC,
+    updateTaskAC,
+    updateTodolistTitleAC,
+    createTaskTC, getTasksTC
+} from "./reducer";
+import {api} from "./api";
+
 
 class TodoList extends React.Component {
 
     constructor(props) {
         super(props);
         this.newTasksTitileRef = React.createRef();
-
     }
 
     componentDidMount() {
@@ -27,47 +36,25 @@ class TodoList extends React.Component {
     }
 
     restoreState = () => {
-        // объявляем наш стейт стартовый
-        let state = this.state;
-        // считываем сохранённую ранее строку из localStorage
-        let stateAsString = localStorage.getItem("our-state-" + this.props.id);
-        // а вдруг ещё не было ни одного сохранения?? тогда будет null.
-        // если не null, тогда превращаем строку в объект
-        if (stateAsString != null) {
-            state = JSON.parse(stateAsString);
-        }
-        // устанавливаем стейт (либо пустой, либо восстановленный) в стейт
-        this.setState(state, () => {
-            this.state.tasks.forEach(t => {
-                if (t.id >= this.nextTaskId) {
-                    this.nextTaskId = t.id + 1;
-                }
-            })
-        });
+        this.props.getTasks(this.props.id)
+        // api.getTasks(this.props.id)
+        //     .then(res => {
+        //         let allTasks = res.data.items;                           // items - это таски сервака
+        //         this.props.setTasks(allTasks, this.props.id);
+        //     });
     }
 
-    nextTaskId = 0;
 
     state = {
-        tasks: [],
         filterValue: "All"
     };
 
     addTask = (newText) => {
-        let newTask = {
-            id: this.nextTaskId,
-            title: newText,
-            isDone: false,
-            priority: "low"
-        };
-        // инкрементим (увеличим) id следующей таски, чтобы при следюущем добавлении, он был на 1 больше
-        this.nextTaskId++;
-       /* let newTasks = [...this.state.tasks, newTask];
-        this.setState( {
-            tasks: newTasks
-        }, () => { this.saveState(); });*/
-       this.props.addTask(newTask, this.props.id);
-
+        this.props.createTask(newText, this.props.id)
+        // api.createTask(newText, this.props.id).then(res => {
+        //     let newTask = res.data.data.item;
+        //     this.props.addTask(newTask, this.props.id);
+        // });
     }
 
     changeFilter = (newFilterValue) => {
@@ -77,24 +64,19 @@ class TodoList extends React.Component {
     }
 
     changeTask = (taskId, obj) => {
-        let newTasks = this.state.tasks.map(t => {
-            if (t.id != taskId) {
-                return t;
-            }
-            else {
-                return {...t, ...obj};
-            }
-        });
 
-        this.props.updateTask(taskId, obj, this.props.id);
-
-        this.setState({
-            tasks: newTasks
-        }, () => { this.saveState(); });
+        this.props.tasks.forEach(t => {
+            if (t.id === taskId) {
+                api.updateTask({...t, ...obj})
+                    .then(res => {
+                        this.props.updateTask(taskId, obj, this.props.id);
+                    });
+            }
+        })
     }
 
-    changeStatus = (taskId, isDone) => {
-        this.changeTask(taskId, {isDone: isDone});
+    changeStatus = (taskId, status) => {
+        this.changeTask(taskId, {status: status});
     }
 
     changeTitle = (taskId, title) => {
@@ -102,18 +84,34 @@ class TodoList extends React.Component {
     }
 
     deleteTodolist = () => {
-        this.props.deleteTodolist(this.props.id);
+        api.deleteTodolist(this.props.id)
+            .then(res => {
+                // раз попали в then, значит
+                this.props.deleteTodolist(this.props.id);
+            });
     }
 
     deleteTask = (taskId) => {
-        this.props.deleteTask(taskId, this.props.id);
+        api.deleteTask(taskId)
+            .then(res => {
+                // раз попали в then, значит
+                this.props.deleteTask(taskId, this.props.id);
+            });
+    }
+
+    updateTitle = (title) => {
+        api.updateTodolistTitle(title, this.props.id)
+            .then(res => {
+                this.props.updateTodolistTitle(title, this.props.id);
+            });
     }
 
     render = () => {
+        let {tasks = []} = this.props;
         return (
                 <div className="todoList">
                     <div className="todoList-header">
-                            <TodoListTitle title={this.props.title} onDelete={this.deleteTodolist} />
+                            <TodoListTitle title={this.props.title} onDelete={this.deleteTodolist} updateTitle={this.updateTitle} />
                             <AddNewItemForm addItem={this.addTask} />
 
                     </div>
@@ -121,7 +119,8 @@ class TodoList extends React.Component {
                     <TodoListTasks changeStatus={this.changeStatus }
                                    changeTitle={this.changeTitle }
                                    deleteTask={this.deleteTask}
-                                   tasks={this.props.tasks.filter(t => {
+                                   /*tasks={this.props.tasks.filter(t => {*/
+                                   tasks={tasks.filter(t => {
                         if (this.state.filterValue === "All") {
                             return true;
                         }
@@ -141,20 +140,34 @@ class TodoList extends React.Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         addTask(newTask, todolistId) {
-            const action = addTaskAC (newTask, todolistId);
-            dispatch(action);
+            dispatch(addTaskAC(newTask, todolistId));
+        },
+        setTasks(tasks, todolistId) {
+            dispatch(setTasksAC(tasks, todolistId));
         },
         updateTask(taskId, obj, todolistId) {
-            const action = updateTaskAC (taskId, obj, todolistId);
+            const action =  updateTaskAC(taskId, obj, todolistId);
             dispatch(action);
         },
         deleteTodolist: (todolistId) => {
-            const action = deleteTotolistAC(todolistId)
+            const action = deleteTodolistAC(todolistId);
             dispatch(action)
         },
         deleteTask: (taskId, todolistId) => {
-            const action = deleteTaskAC(taskId, todolistId)
+            const action = deleteTaskAC(todolistId, taskId);
             dispatch(action)
+        },
+        updateTodolistTitle: (title, todolistId) => {
+            const action = updateTodolistTitleAC(todolistId, title);
+            dispatch(action)
+        },
+        createTask: (newText, todoId) => {
+            const thunk = createTaskTC(newText, todoId);
+            dispatch(thunk)
+        },
+        getTasks: (taskId) =>{
+            const thunk = getTasksTC(taskId);
+            dispatch(thunk)
         }
     }
 }
