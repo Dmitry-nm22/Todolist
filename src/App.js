@@ -3,10 +3,9 @@ import './App.css';
 import TodoList from "./TodoList";
 import AddNewItemForm from "./AddNewItemForm";
 import {connect} from "react-redux";
-import {ADD_TODOLIST, addTodolistAC, createTodolistTC, getTodolistsTc, setTodolistsAC} from "./reducer";
+import {ADD_TODOLIST, addTodolistAC, addTodolistTC, loadTodolistsTC, setTodolistsAC} from "./reducer";
 import axios from "axios";
 import {api} from "./api";
-import thunk from "redux-thunk";
 
 class App extends React.Component {
 
@@ -17,15 +16,8 @@ class App extends React.Component {
     }
 
     addTodoList = (title) => {
-        this.props.createTodolist(title)
-        // api.createTodolist(title)
-        //     .then(res => {
-        //         let todolist = res.data.data.item;
-        //         this.props.addTodolist(todolist);
-        //     });
+        this.props.addTodolist(title);
     }
-
-
 
     componentDidMount() {
         this.restoreState();
@@ -40,10 +32,7 @@ class App extends React.Component {
     }
 
     restoreState = () => {
-        this.props.getTodolists()
-        // api.getTodolists().then(res => {
-        //         this.props.setTodolists(res.data);
-        //     });
+        this.props.loadTodolists();
     }
 
 
@@ -93,21 +82,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setTodolists: (todolists) => {
-            const action = setTodolistsAC(todolists);
-            dispatch(action)
+        loadTodolists: () => {
+            const thunk = loadTodolistsTC();
+            dispatch(thunk);
         },
-        addTodolist: (newTodolist) => {
-            const action = addTodolistAC(newTodolist);
-            dispatch(action)
-        },
-        getTodolists: () => {
-            const thunk = getTodolistsTc();
-            dispatch(thunk)
-        },
-        createTodolist:(title) => {
-            const thunk = createTodolistTC(title);
-            dispatch(thunk)
+        addTodolist: (title) => {
+            const thunk = addTodolistTC(title);
+            dispatch(thunk);
         }
     }
 }

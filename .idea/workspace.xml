@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="607b916b-bef4-4edd-a955-ed5c9bc60647" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Todolist.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Todolist.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -106,6 +113,10 @@
       <workItem from="1579800960767" duration="2994000" />
       <workItem from="1580242414678" duration="280000" />
       <workItem from="1580395579690" duration="561000" />
+      <workItem from="1581436597521" duration="139000" />
+      <workItem from="1581610821567" duration="2234000" />
+      <workItem from="1582486112087" duration="225000" />
+      <workItem from="1582572820153" duration="251000" />
     </task>
     <task id="LOCAL-00001" summary="bax fix">
       <created>1569942069112</created>
@@ -198,7 +209,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579887954717</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="add .idea to gitignor">
+      <created>1581436645915</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1581436645915</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -228,6 +246,7 @@
     <MESSAGE value="refactoring code" />
     <MESSAGE value="add action creator" />
     <MESSAGE value="refactor code" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor code" />
+    <MESSAGE value="add .idea to gitignor" />
+    <option name="LAST_COMMIT_MESSAGE" value="add .idea to gitignor" />
   </component>
 </project>

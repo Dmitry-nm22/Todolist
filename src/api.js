@@ -1,10 +1,9 @@
 import axios from "axios";
 
-
 const instance = axios.create({
-    baseURL: "https://social-network.samuraijs.com/api/1.0/todo-lists",
+    baseURL: "https://social-network.samuraijs.com/api/1.1/todo-lists",
     withCredentials: true,                                       // передавай с запросом куки для запрашиваемого домена
-    headers: {"API-KEY": "a9cc9176-7a5b-449d-8fca-8e1a668d5223"} // специальный ключ в заголовках передаём
+    headers: {"API-KEY": "882dbad7-39ab-4897-86b8-be2cae193ef5"} // специальный ключ в заголовках передаём
 });
 
 export const api = {
